@@ -1,0 +1,41 @@
+{
+  "name": "textokit-mcp",
+  "version": "0.1.1",
+  "mcpName": "io.github.martinPisacreta/textokit-mcp",
+  "description": "MCP server for tienda.textokit.store: 17 pay-per-call x402 tools on Base (web reader, FX and crypto rates, Argentine data, Rioplatense Spanish text) plus free catalog and samples. Pays with the buyer's own wallet.",
+  "type": "module",
+  "bin": {
+    "textokit-mcp": "index.mjs"
+  },
+  "main": "index.mjs",
+  "files": [
+    "index.mjs",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "x402",
+    "base",
+    "usdc",
+    "agents",
+    "api",
+    "argentina",
+    "web-reader",
+    "fx-rates"
+  ],
+  "license": "MIT",
+  "author": "Martin Pisacreta",
+  "homepage": "https://tienda.textokit.store",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martinPisacreta/textokit-mcp.git"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.0",
+    "viem": "^2.45.3"
+  }
+}
