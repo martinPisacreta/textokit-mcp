@@ -1,0 +1,36 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.martinPisacreta/textokit-mcp",
+  "description": "17 pay-per-call x402 tools on Base: web reader, FX/crypto rates, Argentine data, Spanish text.",
+  "repository": {
+    "url": "https://github.com/martinPisacreta/textokit-mcp",
+    "source": "github"
+  },
+  "version": "0.1.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "textokit-mcp",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "TEXTOKIT_PRIVATE_KEY",
+          "description": "EVM private key holding USDC on Base; optional, without it only free tools work",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true
+        },
+        {
+          "name": "TEXTOKIT_MAX_CENTS",
+          "description": "Cap per call in US cents (default 1)",
+          "isRequired": false,
+          "format": "number",
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}
