@@ -21,7 +21,29 @@ Paid (0.001 to 0.005 USDC per call, charged to your own wallet):
 - `textokit_dolar_ar`, `textokit_bcra_indicadores`, `textokit_cuit_ar`, `textokit_direcciones_ar`, `textokit_normativa_ar`: Argentine data.
 - `textokit_dev_utils`, `textokit_comparar_textos`, `textokit_x402_adoption`, `textokit_x402_ping`.
 
-## Setup
+## Remote server (no install)
+
+The same tools are served over MCP Streamable HTTP at **https://tienda.textokit.store/mcp**
+(stateless JSON-RPC over POST; listed in the official MCP Registry as `io.github.martinPisacreta/textokit-mcp`).
+
+Claude Code:
+
+```bash
+claude mcp add --transport http textokit https://tienda.textokit.store/mcp
+```
+
+Cursor, Windsurf and other clients that accept a URL:
+
+```json
+{ "mcpServers": { "textokit": { "url": "https://tienda.textokit.store/mcp" } } }
+```
+
+The remote server never receives a private key. Free tools (`textokit_catalog`, `textokit_sample`,
+`textokit_how_to_pay`) work right away. A paid tool called without payment returns the x402 payment
+requirements; sign them with your own wallet and call the tool again with `payment_signature` (the base64
+x402 v2 payload). If you prefer the server to sign for you, use the local package below.
+
+## Setup (local package)
 
 Add to your MCP client (Claude Desktop, Claude Code, Cursor, Windsurf, ...):
 
