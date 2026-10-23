@@ -1,12 +1,12 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.martinPisacreta/textokit-mcp",
-  "description": "17 pay-per-call x402 tools on Base: web reader, FX/crypto rates, Argentine data, Spanish text. Remot",
+  "description": "17 pay-per-call x402 tools on Base: web reader, FX/crypto rates, Argentine data. Remote or npx.",
   "repository": {
     "url": "https://github.com/martinPisacreta/textokit-mcp",
     "source": "github"
   },
-  "version": "0.1.2",
+  "version": "0.1.3",
   "packages": [
     {
       "registryType": "npm",
