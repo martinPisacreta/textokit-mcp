@@ -75,4 +75,11 @@ Add to your MCP client (Claude Desktop, Claude Code, Cursor, Windsurf, ...):
    facilitator only after a successful response; a failed handler is never charged.
 4. The result includes the transaction hash under `payment`.
 
+## Need an MCP server for your own API?
+
+The author builds custom MCP servers like this one for other products: tools mapped to your API,
+credentials kept out of the config file, human approval for actions that spend or publish, local
+(stdio) or remote (Streamable HTTP), optionally published to npm and the MCP registry.
+Fixed-price packages on Upwork: https://www.upwork.com/services/product/2113736906027325062
+
 Node 20 or newer. MIT.
