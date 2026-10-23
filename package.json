@@ -1,6 +1,6 @@
 {
   "name": "textokit-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "mcpName": "io.github.martinPisacreta/textokit-mcp",
   "description": "MCP server for tienda.textokit.store: 17 pay-per-call x402 tools on Base (web reader, FX and crypto rates, Argentine data, Rioplatense Spanish text) plus free catalog and samples. Pays with the buyer's own wallet.",
   "type": "module",

@@ -89,6 +89,18 @@ function stripX(s) {
   if (s && typeof s === 'object') { const o = {}; for (const [k, v] of Object.entries(s)) if (!k.startsWith('x-')) o[k] = stripX(v); return o; }
   return s;
 }
+// Lean tool list (0.1.2, same as the remote server 0.2.1): a client measured ~5.6k tokens per request on the full one.
+const cap = (t, n) => (t.length <= n ? t : t.slice(0, t.lastIndexOf(' ', n) > 40 ? t.lastIndexOf(' ', n) : n) + '…');
+function slim(s) {
+  if (Array.isArray(s)) return s.map(slim);
+  if (s && typeof s === 'object') { const o = {}; for (const [k, v] of Object.entries(s)) if (!['examples', 'example', '$schema', 'title', '$comment'].includes(k)) o[k] = k === 'description' && typeof v === 'string' ? cap(v, 60) : slim(v); return o; }
+  return s;
+}
+function leanSchema(schema) {
+  const s = slim(stripX(schema || { type: 'object', properties: {} }));
+  for (const k of ['allOf', 'anyOf', 'oneOf', 'if', 'then', 'else', 'not']) delete s[k]; // cross-field rules stay server-side (the store answers 400)
+  return s;
+}
 function buildTools(spec) {
   const paid = [];
   for (const [p, item] of Object.entries(spec.paths || {})) {
@@ -103,8 +115,8 @@ function buildTools(spec) {
       price: pay.price?.amount,
       network: pay.network,
       summary: op.summary,
-      description: `${op.summary || route}. ${(op.description || '').slice(0, 400)} Price: ${price} per call, paid with x402 on Base from the buyer wallet. Free sample: textokit_sample.`,
-      inputSchema: stripX(op.requestBody?.content?.['application/json']?.schema || { type: 'object', properties: {} }),
+      description: `${op.summary || route}. ${price} per call, paid with x402 on Base from your wallet. Free sample: textokit_sample.`,
+      inputSchema: leanSchema(op.requestBody?.content?.['application/json']?.schema),
     });
   }
   const free = [
@@ -116,7 +128,7 @@ function buildTools(spec) {
 
 const spec = await loadSpec();
 const { paid, free } = buildTools(spec);
-const server = new Server({ name: 'textokit-mcp', version: '0.1.1' }, { capabilities: { tools: {} } });
+const server = new Server({ name: 'textokit-mcp', version: '0.1.2' }, { capabilities: { tools: {} } });
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
   tools: [...free, ...paid].map(({ name, description, inputSchema }) => ({ name, description, inputSchema })),
