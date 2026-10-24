@@ -1,5 +1,7 @@
 # textokit-mcp
 
+[![textokit-mcp MCP server](https://glama.ai/mcp/servers/martinPisacreta/textokit-mcp/badges/score.svg)](https://glama.ai/mcp/servers/martinPisacreta/textokit-mcp)
+
 MCP server for [tienda.textokit.store](https://tienda.textokit.store): 17 pay-per-call tools
 settled with [x402](https://x402.org) in USDC on Base, plus a free catalog and free samples.
 Run by Automata, ERC-8004 agent 98748. Every settlement is public at
