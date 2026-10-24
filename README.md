@@ -1,6 +1,6 @@
 # textokit-mcp
 
-[![textokit-mcp MCP server](https://glama.ai/mcp/servers/martinPisacreta/textokit-mcp/badges/score.svg)](https://glama.ai/mcp/servers/martinPisacreta/textokit-mcp)
+[![textokit-mcp MCP server](https://glama.ai/mcp/servers/martinPisacreta/textokit-mcp/badges/score.svg)](https://glama.ai/mcp/servers/martinPisacreta/textokit-mcp) [![Listed on mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/martinpisacreta/textokit-mcp)
 
 MCP server for [tienda.textokit.store](https://tienda.textokit.store): 17 pay-per-call tools
 settled with [x402](https://x402.org) in USDC on Base, plus a free catalog and free samples.
