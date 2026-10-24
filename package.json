@@ -8,6 +8,9 @@
     "textokit-mcp": "index.mjs"
   },
   "main": "index.mjs",
+  "scripts": {
+    "test": "node test/smoke.mjs"
+  },
   "files": [
     "index.mjs",
     "README.md"
