@@ -84,4 +84,8 @@ credentials kept out of the config file, human approval for actions that spend o
 (stdio) or remote (Streamable HTTP), optionally published to npm and the MCP registry.
 Fixed-price packages on Upwork: https://www.upwork.com/services/product/2113736906027325062
 
+Already have an MCP server? A fixed-price review in 48 hours checks tool schemas and descriptions,
+errors and timeouts, secrets in output and logs, and the confirmation path for tools that write or
+spend, with optional fixes and tests: https://www.upwork.com/services/product/2116921806127265220
+
 Node 20 or newer. MIT.
