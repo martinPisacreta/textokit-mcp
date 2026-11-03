@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased (2026-11-03)
+- Fuller tool descriptions for bcra-indicadores, fx-rates, x402-adoption, polymarket-markets and comparar-textos (what each returns, when to use it, when not and which sibling tool to use instead), plus clearer catalog and sample descriptions. The other tools keep their one-line OpenAPI summary.
+
 ## 0.1.2 (2026-10-23)
 - Lean tool list: shorter descriptions, about 39% fewer bytes in `tools/list` (19 tools: 17 paid routes, the free catalog and the free sample).
 - `server.json` 0.1.3 for the official MCP registry points to npm 0.1.2 and to the remote endpoint `https://tienda.textokit.store/mcp`.

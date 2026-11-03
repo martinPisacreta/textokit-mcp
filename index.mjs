@@ -101,6 +101,15 @@ function leanSchema(schema) {
   for (const k of ['allOf', 'anyOf', 'oneOf', 'if', 'then', 'else', 'not']) delete s[k]; // cross-field rules stay server-side (the store answers 400)
   return s;
 }
+// Fuller descriptions where the one-line OpenAPI summary left agents guessing what the tool returns
+// or when to pick it (Glama tool-definition grades B/C on 2026-11-03). Price and sample hint are appended below.
+const ROUTE_DESCRIPTIONS = {
+  'bcra-indicadores': 'Official Argentine central bank (BCRA) statistics: one page of monetary variables (resource=lista) or dated observations of one variable (resource=serie with idVariable, optional desde/hasta). Returns items, source URL, read time and the pagination BCRA reports; query filters only the received page. Use for official Argentine monetary data, not for currency conversion (textokit_fx_rates) or Argentine dollar quotes (textokit_dolar_ar).',
+  'fx-rates': 'Daily reference exchange rates for one base currency (default USD) and comma-separated quote codes, with per-currency dates, unavailable codes and source details. Use for dated fiat conversion references; not for intraday quotes, crypto prices (textokit_crypto_prices) or Argentine dollar quotes (textokit_dolar_ar).',
+  'x402-adoption': 'Audit receipt claims against Base USDC Transfer logs you supply (operation=audit with a JSON-string bundle of tape and evidence): returns unmatched or ambiguous claims, duplicate event counts and declared-wallet exclusions. It does not fetch live RPC data or attribute purchases. operation=market_stats with section returns stored historical x402 Bazaar snapshots. To test a payment end to end use textokit_x402_ping.',
+  'polymarket-markets': 'Public Polymarket data: one upstream page of markets (default), or the positions or activity of a public wallet (resource=positions or activity, with user). Returns compact original fields, source URL, read time and pagination; query, status and order apply only to the received page. Read-only research: it does not trade, and an empty filtered page does not prove absence. For crypto prices use textokit_crypto_prices.',
+  'comparar-textos': 'Exact comparison of two strings, original (reference) and entrega (candidate), with no whitespace or Unicode normalization, up to 20,000 UTF-16 units each. Returns whether they are equal, their lengths and the first differing position (code point and UTF-16), or null when equal. Use to check exact equality or find the first divergence; it does not return a full diff or a similarity score. For a summary grounded in a text use textokit_source_bounded_summary.',
+};
 function buildTools(spec) {
   const paid = [];
   for (const [p, item] of Object.entries(spec.paths || {})) {
@@ -115,13 +124,13 @@ function buildTools(spec) {
       price: pay.price?.amount,
       network: pay.network,
       summary: op.summary,
-      description: `${op.summary || route}. ${price} per call, paid with x402 on Base from your wallet. Free sample: textokit_sample.`,
+      description: `${ROUTE_DESCRIPTIONS[route] || `${op.summary || route}.`} ${price} per call, paid with x402 on Base from your wallet. Free sample: textokit_sample.`,
       inputSchema: leanSchema(op.requestBody?.content?.['application/json']?.schema),
     });
   }
   const free = [
-    { name: 'textokit_catalog', description: 'List all store routes with price in USDC, network and summary. Free, no payment.', inputSchema: { type: 'object', properties: {}, additionalProperties: false } },
-    { name: 'textokit_sample', description: 'Free sample of one route: same schema as the paid output plus an inputExample. Use it before paying.', inputSchema: { type: 'object', required: ['route'], properties: { route: { type: 'string', enum: paid.map((t) => t.route), description: 'Route name, e.g. web-read' } }, additionalProperties: false } },
+    { name: 'textokit_catalog', description: 'List the paid routes of the store as loaded from its OpenAPI document at startup: route, tool name, price in USDC, network and summary. Free, no wallet, no arguments. Use it first to pick a tool; it does not run any service (use textokit_sample to see an example for one route).', inputSchema: { type: 'object', properties: {}, additionalProperties: false } },
+    { name: 'textokit_sample', description: 'Free documentation for one route (for example web-read): its input schema, an input example and an output example, with no payment and no real execution. Use it before paying to see the request and response shape; the example is not a live result for your input. Get route names from textokit_catalog.', inputSchema: { type: 'object', required: ['route'], properties: { route: { type: 'string', enum: paid.map((t) => t.route), description: 'Route name, e.g. web-read' } }, additionalProperties: false } },
   ];
   return { paid, free };
 }
